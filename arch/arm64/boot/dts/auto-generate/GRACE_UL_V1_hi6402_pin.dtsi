@@ -1,0 +1,8 @@
+/ {
+	hi6402es_irq: hi6402es_irq@e82b9000 {
+		hi6402es_pinctrl {
+		};
+
+	};
+
+};

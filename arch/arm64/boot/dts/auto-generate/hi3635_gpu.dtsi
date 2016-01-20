@@ -1,0 +1,18 @@
+/{
+    gpu: mali@E8600000 {
+        compatible = "arm,malit6xx", "arm,mali-midgard";
+        reg = <0x0 0xE8600000 0x0 0x4000>;
+        interrupts = <0 137 4 0 138 4 0 139 4>;
+	interrupt-names = "JOB", "MMU", "GPU";
+	clocks = <&clk_g3d>;
+	gpu-supply = <&g3d>;
+	operating-points = <
+		/* kHz */
+		288000 0
+		360000 0
+		480000 0
+		600000 0
+	        680000 0
+	>;
+    };
+};

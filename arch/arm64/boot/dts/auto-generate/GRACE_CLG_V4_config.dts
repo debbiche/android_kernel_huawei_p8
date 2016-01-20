@@ -1,0 +1,62 @@
+
+/**
+ * Huawei Ltd.
+ * PhosphorV660
+ */
+
+/dts-v1/;
+
+/include/ "fastboot.dtsi"
+/include/ "GRACE_CLG_V3_config.dtsi"
+/include/ "GRACE_CLG_V4_pin.dtsi"
+/include/ "GRACE_CLG_V4_hi6402_pin.dtsi"
+/include/ "GRACE_CLG_V4_modem_pin.dtsi"
+///include/ "GRACE_CLG_V4_charger.dtsi"
+///include/ "GRACE_CLG_V4_pmic.dtsi"
+///include/ "GRACE_CLG_V4_gpio_logic.dtsi"
+
+/ {
+	hisi,boardid = <1 4 1 1 >;
+	hisi,boardname = "GRACE_CLG_V4";
+	hisi,modem_id = <0x3EBEF000>;
+	hisi,config_profile = "normal";
+
+
+	panel_lcd_jdi_NT35695 {
+		lcd-bl-type = <2>;
+	};
+	panel_blpwm {
+		pinctrl-0 = <&gpio154_pmx_func &gpio154_cfg_func>;
+                pinctrl-1 = <&gpio154_pmx_idle &gpio154_cfg_idle>;
+                status = "ok";
+        };
+	touchscreen {
+		synaptics: touchscreen@70 {
+			pinctrl-0 = <&gpio157_cfg_func &gpio200_cfg_func>;
+			pinctrl-1 = <&gpio157_cfg_idle &gpio200_cfg_idle>;
+			reset_gpio = <&gpio19 5 0>;
+		};
+	};
+	hisi_battery:hisi_battery {
+		batt_name = <&scudatl_2600_39k &scudsony_2600_68k &sunwodaatl_2600_22k &sunwodalg_2600_470k &sunwodalg_2520_10k>;
+		status = "ok";
+	};
+	antenna_fpga{
+		compatible = "antenna_fpga";
+		antenna_fpga,pre-image-filename = "GRACE-CLG-V4.bin";
+		status = "ok";
+	};
+
+	audio_hw_config {
+		modem_sio_master = "false";
+		status = "ok";
+	};
+	amba {
+			i2c@FDF0A000 {
+					nfc@28 {
+							status = "disable";
+					};
+			};
+	};
+};
+

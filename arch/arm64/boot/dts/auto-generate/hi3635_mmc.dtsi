@@ -1,0 +1,101 @@
+/{
+    aliases {
+        mshc0 = &dwmmc0;
+        mshc1 = &dwmmc1;
+        mshc2 = &dwmmc2;
+    };
+    /* emmc */
+    dwmmc0: dwmmc0@FF1FE000 {
+	compatible = "hisilicon,hi3635-dw-mshc";
+	reg = <0x0 0xff1fe000 0x0 0x1000>;
+	interrupts = <0 118 4>;
+	clocks = <&clk_gate_mmc0>, <&clk_ppll0>;
+	clock-names = "ciu", "biu";
+	num-slots = <1>;
+	vmmc-supply = <&ldo15>;
+	fifo-depth = <0x100>;
+	card-detect-delay = <200>;
+	broken-cd;
+	supports-highspeed;
+	caps2-mmc-packed-command;
+	caps2-mmc-hs200-1_8v;
+	caps2-mmc-cache-ctrl;
+	caps2-mmc-poweroff-notify;
+	pinctrl-names = "default", "idle";
+	pinctrl-0 = <&gpio006_pmx_func &gpio008_pmx_func
+				&gpio006_cfg_func &gpio007_cfg_func
+				&gpio008_cfg_func &gpio009_cfg_func
+				&gpio010_cfg_func &gpio011_cfg_func
+				&gpio012_cfg_func &gpio013_cfg_func
+				&gpio014_cfg_func &gpio015_cfg_func>;
+	pinctrl-1 = <&gpio006_pmx_idle &gpio008_pmx_idle
+				&gpio006_cfg_idle &gpio007_cfg_idle
+				&gpio008_cfg_idle &gpio009_cfg_idle
+				&gpio010_cfg_idle &gpio011_cfg_idle
+				&gpio012_cfg_idle &gpio013_cfg_idle
+				&gpio014_cfg_idle &gpio015_cfg_idle>;
+	status = "ok";
+	slot@0 {
+		reg = <0>;
+		bus-width = <8>;
+		disable-wp;
+	};
+    };
+
+    /* SD */
+    dwmmc1: dwmmc1@FF17F000 {
+	compatible = "hisilicon,hi3635-dw-mshc";
+	reg = <0x0 0xff17f000 0x0 0x1000>;
+	interrupts = <0 119 4>;
+	clocks = <&clk_gate_mmc1>, <&clk_ppll0>;
+	clock-names = "ciu", "biu";
+	num-slots = <1>;
+	vmmc-supply = <&ldo16>;
+	vqmmc-supply = <&ldo9>;
+	fifo-depth = <0x100>;
+	card-detect-delay = <200>;
+	supports-highspeed;
+	caps2-mmc-detect-on-error;
+	pinctrl-names = "default","idle";
+	pinctrl-0 = <&gpio057_pmx_func &gpio058_pmx_func &gpio062_pmx_func
+				&gpio057_cfg_func &gpio058_cfg_func
+				&gpio059_cfg_func &gpio060_cfg_func
+				&gpio061_cfg_func &gpio062_cfg_func &gpio205_cfg_func>;
+	pinctrl-1 = <&gpio057_pmx_idle &gpio058_pmx_idle &gpio062_pmx_idle
+				&gpio057_cfg_idle &gpio058_cfg_idle
+				&gpio059_cfg_idle &gpio060_cfg_idle
+				&gpio061_cfg_idle &gpio062_cfg_idle &gpio205_cfg_idle>;
+	cd-vol = <1>;
+	cd-gpio = <&gpio25 5 0>;
+	status = "ok";
+	slot@0 {
+		reg = <0>;
+		bus-width = <4>;
+		disable-wp;
+	};
+    };
+
+    /* SDIO */
+    dwmmc2: dwmmc2@FF17E000 {
+        compatible = "hisilicon,hi3635-dw-mshc";
+        reg = <0x0 0xff17e000 0x0 0x1000>;
+        interrupts = <0 120 4>;
+        num-slots = <1>;
+        fifo-depth = <0x100>;
+	card-detect-delay = <200>;
+        supports-highspeed;
+	keep-power-in-suspend;
+	caps2-mmc-packed-command;
+        clocks = <&clk_gate_mmc2>, <&clk_ppll0>;
+        clock-names = "ciu", "biu";
+        pinctrl-names = "default","idle";
+        pinctrl-0 = <>;
+        pinctrl-1 = <>;
+        status = "ok";
+        slot@0 {
+                reg = <0>;
+                bus-width = <4>;
+                disable-wp;
+	};
+    };
+};

@@ -1,0 +1,5 @@
+config HISI_BALONG_MODEM_HI6XXX
+	bool "Hisilicon platform modem support"
+	default n
+	help
+	  Say yes here to support the hisilicon platform modem

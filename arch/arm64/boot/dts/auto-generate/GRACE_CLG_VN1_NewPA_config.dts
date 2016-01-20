@@ -1,0 +1,29 @@
+
+/**
+ * Huawei Ltd.
+ * PhosphorV660
+ */
+
+/dts-v1/;
+
+/include/ "fastboot.dtsi"
+/include/ "GRACE_CLG_VN1_config.dtsi"
+/include/ "GRACE_CLG_VN1_NewPA_pin.dtsi"
+/include/ "GRACE_CLG_VN1_NewPA_modem_pin.dtsi"
+///include/ "GRACE_CLG_VN1_NewPA_charger.dtsi"
+///include/ "GRACE_CLG_VN1_NewPA_pmic.dtsi"
+///include/ "GRACE_CLG_VN1_NewPA_gpio_logic.dtsi"
+
+/ {
+	hisi,boardid = <1 4 4 2 >;
+	hisi,boardname = "GRACE_CLG_VN1_NewPA";
+	hisi,modem_id = <0x3EBEA400>;
+	hisi,config_profile = "normal";
+
+	antenna_fpga{
+		compatible = "antenna_fpga";
+		antenna_fpga,pre-image-filename = "GRACE-CLG-VN1.bin";
+		status = "ok";
+	};
+};
+

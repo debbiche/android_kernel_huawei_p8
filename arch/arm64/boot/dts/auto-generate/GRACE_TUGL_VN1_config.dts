@@ -1,0 +1,35 @@
+
+/**
+ * Huawei Ltd.
+ * PhosphorV660
+ */
+
+/dts-v1/;
+
+/include/ "fastboot.dtsi"
+/include/ "GRACE_TUGL_V4_config.dtsi"
+/include/ "GRACE_TUGL_VN1_pin.dtsi"
+/include/ "GRACE_TUGL_VN1_modem_pin.dtsi"
+///include/ "GRACE_TUGL_VN1_charger.dtsi"
+///include/ "GRACE_TUGL_VN1_pmic.dtsi"
+///include/ "GRACE_TUGL_VN1_gpio_logic.dtsi"
+
+/ {
+	hisi,boardid = <1 4 3 7 >;
+	hisi,boardname = "GRACE_TUGL_VN1";
+	hisi,modem_id = <0x3EF56000>;
+	hisi,config_profile = "normal";
+
+
+	antenna_fpga{
+		antenna_fpga,pre-image-filename = "GRACE-TUGL-VN1.bin";
+		status = "ok";
+	};
+
+	/*ois device*/
+	hisi,lc8981 {
+		hisi,ois-support = <1>;
+		status = "ok";
+	};
+};
+

@@ -1,0 +1,118 @@
+
+/**
+ * Huawei Ltd.
+ * PhosphorV660
+ */
+
+
+/include/ "fastboot.dtsi"
+/include/ "GRACE_TUGL_V1_config.dtsi"
+/include/ "GRACE_CLG_V1_pin.dtsi"
+/include/ "GRACE_CLG_V1_hi6402_pin.dtsi"
+/include/ "GRACE_CLG_V1_modem_pin.dtsi"
+///include/ "GRACE_CLG_V1_charger.dtsi"
+///include/ "GRACE_CLG_V1_pmic.dtsi"
+///include/ "GRACE_CLG_V1_gpio_logic.dtsi"
+/include/ "huawei_ext_modem.dtsi"
+
+/ {
+	hisi,boardid = <1 4 0 1 >;
+	hisi,boardname = "GRACE_CLG_V1";
+	hisi,modem_id = <0x3EBE4000>;
+	hisi,platform_num = <3>;
+	hisi,provider0 = "HUAWEI_K3";
+	hisi,sub_platform_info0 = "Kirin930";
+	hisi,provider1 = "BALONG";
+	hisi,sub_platform_info1 = "V7R2";
+	hisi,provider2 = "VIA";
+	hisi,sub_platform_info2 = "cpb82d";
+	hisi,config_profile = "normal";
+
+	bcm_wifi {
+		wifi_nvram_name = "/vendor/firmware/nvram4334_hw_fifa_clg.txt";
+	};
+
+	amba {
+		serial5: uart@fdf05000 {
+			pinctrl-names = "default", "idle";
+			pinctrl-0 = <>;
+			pinctrl-1 = <>;
+			dmas;
+			dma-names;
+			//pinctrl-0 = <&gpio068_pmx_func &gpio069_pmx_func &gpio070_pmx_func &gpio068_cfg_func
+			//	     &gpio069_cfg_func &gpio070_cfg_func &gpio071_cfg_func>;
+			//pinctrl-1 = <&gpio068_pmx_idle &gpio069_pmx_idle &gpio070_pmx_idle &gpio068_cfg_idle
+			//	     &gpio069_cfg_idle &gpio070_cfg_idle &gpio071_cfg_idle>;
+			reset-controller-reg = <0x078 0x07c 0x080 15>;
+			status = "ok";
+		};
+
+		spi1: spi@fdf08000 {
+				status = "ok";
+				pinctrl-names = "default", "idle";
+				pinctrl-0 = <&gpio146_pmx_func &gpio147_pmx_func &gpio148_pmx_func &gpio149_pmx_func
+					     &gpio146_cfg_func &gpio147_cfg_func &gpio148_cfg_func &gpio149_cfg_func>;
+				pinctrl-1 = <&gpio146_pmx_idle &gpio147_pmx_idle &gpio148_pmx_idle &gpio149_pmx_idle
+					     &gpio146_cfg_idle &gpio147_cfg_idle &gpio148_cfg_idle &gpio149_cfg_idle>;
+
+				num-cs = <1>;
+				#address-cells = <1>;
+				#size-cells = <0>;
+				cs-gpios = <&gpio18 5 0>;
+				spi_dev4: spi_dev4@4 {
+						compatible = "spi_dev4";
+						spi-max-frequency = <10000000>;
+						reg = <0>;
+						pl022,com-mode = <2>;
+						pl022,interface = <0>;
+						pl022,rx-level-trig = <3>;
+						pl022,tx-level-trig = <3>;
+						pl022,ctrl-len = <7>;
+						pl022,wait-state = <0>;
+						pl022,duplex = <0>;
+						pl022,slave-tx-disable = <0>;
+				};
+		};
+	};
+
+	viacbp82d_power:viacbp82d_power {
+		via_reset_ind = <&gpioes31 6 0>;
+		status = "ok";
+	};
+	viacbp82d_cbp_spi:viacbp82d_cbp_spi {
+		status = "ok";
+	};
+	rnic_adapter:rnic_adapter {
+		status = "ok";
+	};
+	antenna_fpga{
+		compatible = "antenna_fpga";
+		antenna_fpga,gpio-cdone = <&gpio4 1 0>;
+		antenna_fpga,gpio-exception = <&gpioes31 5 0>;
+		antenna_fpga,pre-image-filename = "GRACE-CLG-V1.bin";
+		status = "ok";
+	};
+	sim0 {
+		status = "ok";
+		set_gpio="disabled";
+		detect_pin_direction="closed";
+		card_tray = <0>;
+		hpd_trigger = <0x12>;
+		debounce_settings = <0x27>;
+	};
+	sim1 {
+		status = "ok";
+		set_gpio="other";
+		detect_pin_direction="open";
+    };
+	sensorhub{
+		mag_sensor:compass{
+			mag1{
+				file_id=<4>;
+				softiron_parameter = <0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0>;
+				status = "ok";
+			};
+		};
+	};
+};
+

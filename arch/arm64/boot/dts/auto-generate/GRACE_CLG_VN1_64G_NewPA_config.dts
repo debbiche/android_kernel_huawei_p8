@@ -1,0 +1,23 @@
+
+/**
+ * Huawei Ltd.
+ * PhosphorV660
+ */
+
+/dts-v1/;
+
+/include/ "fastboot.dtsi"
+/include/ "GRACE_CLG_VN1_NewPA_config.dtsi"
+/include/ "GRACE_CLG_VN1_64G_NewPA_pin.dtsi"
+/include/ "GRACE_CLG_VN1_64G_NewPA_modem_pin.dtsi"
+///include/ "GRACE_CLG_VN1_64G_NewPA_charger.dtsi"
+///include/ "GRACE_CLG_VN1_64G_NewPA_pmic.dtsi"
+///include/ "GRACE_CLG_VN1_64G_NewPA_gpio_logic.dtsi"
+
+/ {
+	hisi,boardid = <1 4 4 3 >;
+	hisi,boardname = "GRACE_CLG_VN1_64G_NewPA";
+	hisi,config_profile = "high";
+
+};
+

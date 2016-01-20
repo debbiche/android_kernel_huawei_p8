@@ -1,0 +1,51 @@
+
+/**
+ * Huawei Ltd.
+ * PhosphorV660
+ */
+
+/dts-v1/;
+
+/include/ "fastboot.dtsi"
+/include/ "GRACE_CLG_V4_config.dtsi"
+/include/ "GRACE_CLG_VN1_pin.dtsi"
+/include/ "GRACE_CLG_VN1_modem_pin.dtsi"
+///include/ "GRACE_CLG_VN1_charger.dtsi"
+///include/ "GRACE_CLG_VN1_pmic.dtsi"
+///include/ "GRACE_CLG_VN1_gpio_logic.dtsi"
+
+/ {
+	hisi,boardid = <1 4 3 1 >;
+	hisi,boardname = "GRACE_CLG_VN1";
+	hisi,modem_id = <0x3EBE5000>;
+	hisi,config_profile = "normal";
+
+	viacbp82d_power:viacbp82d_power {
+		via_reset_ind = <&gpio23 4 0>;				//reset indication is connected to gpio 188
+		via_reset_ind_connect_to_codec = <0x0>;		//reset_indication is connected to hi6402 codec?
+		status = "ok";
+	};
+	antenna_fpga{
+		compatible = "antenna_fpga";
+		antenna_fpga,pre-image-filename = "GRACE-CLG-VN1.bin";
+		status = "ok";
+	};
+	anc_hs: anc_hs@0{
+		gpios = <&gpio4 2 0>, <&gpio31 6 0>;
+		anc_hs_btn_hook_min_voltage = <150>;
+		anc_hs_btn_hook_max_voltage = <188>;
+		anc_hs_btn_volume_up_min_voltage = <192>;
+		anc_hs_btn_volume_up_max_voltage = <235>;
+		anc_hs_btn_volume_down_min_voltage = <240>;
+		anc_hs_btn_volume_down_max_voltage = <290>;
+		//0 means soc gpios, 1 means codec gpios
+		gpio_type = <1>;
+		status = "ok";
+	};
+	/*ois device*/
+	hisi,lc8981 {
+		hisi,ois-support = <1>;
+		status = "ok";
+	};
+};
+

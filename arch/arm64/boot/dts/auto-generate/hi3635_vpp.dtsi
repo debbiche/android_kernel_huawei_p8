@@ -1,0 +1,17 @@
+/include/ "hi3635_clock.dtsi"
+/include/ "hi3635_gpio.dtsi"
+//include/ "hisi_6421v300_pmu.dtsi"
+/ {
+  vpp{
+        compatible = "hisilicon,k3vpp";
+       	reg = <0x0 0xE8968000 0x0 0x1FFF>;
+		interrupts = <0 141 4>;
+		//clock
+		clocks = <&clk_gate_vpp>;
+		clock-names = "clk_vpp";	
+        //these are for ldo resources
+        ldo_vpp-supply = <&vppip>;
+        status = "ok";
+    };
+};
+

@@ -1,0 +1,16 @@
+
+
+/{
+	hisi_usb:hisi_usb@FF080000 {
+		compatible = "hisilicon,hi3635-usb-otg";
+		reg = <0x0 0xff080000 0x0 0x40000>;
+		interrupts = <0 115 4>;
+		otgdebugsubsys-supply = <&usb2otg>;
+		eyePattern = <0x01ee66e7>;
+	};
+
+	usb_otg_ahbif@ff0c0000 {
+		compatible = "hisilicon,hi3635-usb-otg-ahbif";
+		reg = <0x0 0xff0c0000 0x0 0x40000>;
+	};
+};

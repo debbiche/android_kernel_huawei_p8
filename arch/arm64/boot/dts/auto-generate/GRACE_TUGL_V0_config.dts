@@ -1,0 +1,99 @@
+
+/**
+ * Huawei Ltd.
+ * PhosphorV660
+ */
+
+/dts-v1/;
+
+/include/ "fastboot.dtsi"
+/include/ "GRACE_TUGL_V1_config.dtsi"
+/include/ "GRACE_TUGL_V0_pin.dtsi"
+/include/ "GRACE_TUGL_V0_hi6402_pin.dtsi"
+/include/ "GRACE_TUGL_V0_modem_pin.dtsi"
+///include/ "GRACE_TUGL_V0_charger.dtsi"
+///include/ "GRACE_TUGL_V0_pmic.dtsi"
+///include/ "GRACE_TUGL_V0_gpio_logic.dtsi"
+
+/ {
+	hisi,boardid = <1 4 0 3 >;
+	hisi,boardname = "GRACE_TUGL_V0";
+	hisi,modem_id = <0x3EF51000>;
+	hisi,config_profile = "normal";
+
+	bcm_wifi {
+		wifi_nvram_name = "/vendor/firmware/nvram4334_hw_fifa_tugl.txt";
+	};
+
+	sensorhub{
+		acc_sensor:gsensor{
+			acc1{
+				compatible="huawei,Invensense_icm20628";
+				bus_number=<0>;
+				reg=<0x68>;
+				chip_id_register=<0x80>;
+				chip_id_value=<0xa2 0x90>;
+				file_id=<5>;
+				sensor_type="acc";
+				sensor-vdd-supply = <&ldo24>;
+				axis_map_x=<1>;
+				axis_map_y=<0>;
+				axis_map_z=<2>;
+				negate_x=<0>;
+				negate_y=<1>;
+				negate_z=<0>;
+				offset_x=<0>;
+				offset_y=<0>;
+				offset_z=<0>;
+				poll_interval=<10>;
+				gpio_int1=<&gpio25 8 0>;
+				status = "ok";
+			};
+		};
+
+
+		gyro_sensor:gyroscope{
+			gyro1{
+				compatible="huawei,Invensense_icm20628";
+				bus_number=<0>;
+				reg=<0x68>;
+				chip_id_register=<0x80>;
+				chip_id_value=<0xa2 0x90>;
+				file_id=<5>;
+				sensor_type="gyro";
+				sensor-vdd-supply = <&ldo24>;
+				axis_map_x=<1>;
+				axis_map_y=<0>;
+				axis_map_z=<2>;
+				negate_x=<0>;
+				negate_y=<1>;
+				negate_z=<0>;
+				poll_interval=<10>;
+				gpio_int1=<&gpio25 8 0>;
+				status = "ok";
+			};
+		};
+
+		mag_sensor:compass{
+			mag1{
+				file_id=<5>;
+				softiron_parameter = <0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0>;
+				status = "ok";
+			};
+		};
+	};
+
+	sensorhub_ext_config:sensorhub_ex{
+		compatible = "huawei,sensorhub";
+		akm_need_current = "no";
+		invensense_exist = "yes";
+		isensor_version = "yes";
+		adapt_file_id = <0x05 0x06 0x07 0x08>;
+	};
+	antenna_fpga{
+		compatible = "antenna_fpga";
+		antenna_fpga,pre-image-filename = "GRACE-TUGL-V0.bin";
+		status = "ok";
+	};
+};
+

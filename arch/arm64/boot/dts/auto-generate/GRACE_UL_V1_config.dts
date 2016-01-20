@@ -1,0 +1,52 @@
+
+/**
+ * Huawei Ltd.
+ * PhosphorV660
+ */
+
+/dts-v1/;
+
+/include/ "fastboot.dtsi"
+/include/ "GRACE_TUGL_V1_config.dtsi"
+/include/ "GRACE_UL_V1_pin.dtsi"
+/include/ "GRACE_UL_V1_hi6402_pin.dtsi"
+/include/ "GRACE_UL_V1_modem_pin.dtsi"
+///include/ "GRACE_UL_V1_charger.dtsi"
+///include/ "GRACE_UL_V1_pmic.dtsi"
+///include/ "GRACE_UL_V1_gpio_logic.dtsi"
+
+/ {
+	hisi,boardid = <1 4 0 2 >;
+	hisi,boardname = "GRACE_UL_V1";
+	hisi,modem_id = <0x3EB02000>;
+	hisi,config_profile = "normal";
+
+	bcm_wifi {
+		wifi_nvram_name = "/vendor/firmware/nvram4334_hw_fifa_ul.txt";
+	};
+	antenna_fpga{
+		compatible = "antenna_fpga";
+		status = "disabled";
+	};
+	nfc_exist {
+		nfc_exist_flag = "1";
+		status = "ok";
+	};
+	sim0 {
+		status = "ok";
+		set_gpio="disabled";
+		detect_pin_direction="closed";
+		card_tray = <0>;
+		hpd_trigger = <0x12>;
+		debounce_settings = <0x27>;
+	};
+	sim1 {
+		status = "ok";
+		set_gpio="other";
+		detect_pin_direction="open";
+	};
+	devcheck: devcheck {
+		antenna_ctl = <0>;
+		nfc = <1>;
+	};
+};

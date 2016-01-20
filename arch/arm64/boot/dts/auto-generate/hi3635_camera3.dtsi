@@ -1,0 +1,670 @@
+/*
+ * Copyright (c) 2012-2013, The Linux Foundation. All rights reserved.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 and
+ * only version 2 as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ */
+
+
+
+
+/include/ "hi3635_gpio.dtsi"
+/include/ "hi3635_pmu.dtsi"
+/include/ "hi3635_i2c.dtsi"
+/include/ "hi3635_clock.dtsi"
+/*/include / "hisi_3630_pin_fpga.dtsi"*/
+/ {
+	huawei,huawei_isp {
+		compatible = "huawei,huawei_isp";
+		huawei,isp-name = "huawei_isp";
+		huawei,isp-base = <0xE8400000 0x100000>;
+		huawei,isp-base-flag = <0x00000200>;
+		huawei,isp-irq = <163>;
+		huawei,isp-irq-flag = <0x00000400>;
+		clocks = <&clk_gate_ispmcu &clk_gate_ispmipi &clk_gate_ispcore>;
+		clock-names = "clk_isp", "clk_ispmipi", "clk_ispcore";
+		vcc_isp-supply = <&ispsubsys>;
+		pinctrl-names = "default", "idle";
+		pinctrl-0 = <&gpio021_pmx_func
+			     &gpio031_pmx_func
+			     &gpio032_pmx_func
+			     &gpio021_cfg_func
+			     &gpio022_cfg_func
+			     &gpio025_cfg_func
+			     &gpio026_cfg_func
+			     &gpio027_cfg_func
+			     &gpio028_cfg_func
+			     &gpio029_cfg_func
+			     &gpio030_cfg_func
+			     &gpio031_cfg_func
+			     &gpio032_cfg_func
+			     >;
+		pinctrl-1 = <&gpio021_pmx_idle
+			     &gpio031_pmx_idle
+			     &gpio032_pmx_idle
+			     &gpio021_cfg_idle
+			     &gpio022_cfg_idle
+			     &gpio025_cfg_idle
+			     &gpio026_cfg_idle
+			     &gpio027_cfg_idle
+			     &gpio028_cfg_idle
+			     &gpio029_cfg_idle
+			     &gpio030_cfg_idle
+			     &gpio031_cfg_idle
+			     &gpio032_cfg_idle
+			     >;
+		status = "ok";
+	};
+
+	hisi,hisi_vcm@0 {
+		compatible = "hisi,hisi_vcm_0";
+		hisi,vcm-name = "hisi_vcm_0";
+		status = "disabled";
+	};
+
+	huawei,huawei_csi {
+		compatible = "huawei,csi-phy";
+		huawei,csi-name = "csi-phy";
+		huawei,csi-base-offset = <0x7F400 0x7F800>;
+		huawei,csi0-irq = <165>;
+		huawei,csi0-irq-flag = <0x00000400>;
+		huawei,csi1-irq = <166>;
+		huawei,csi1-irq-flag = <0x00000400>;
+		huawei,dsi_csi_used = <0>;
+		clocks = <&clk_gate_dphy1 &clk_gate_dphy3>;
+		clock-names = "clk_dphy1", "clk_dphy3";
+		status = "ok";
+	};
+
+	/* begin for hwcam arch  */
+	huawei,camcfgdev {
+			compatible = "huawei,camcfgdev";
+			huawei,product_name = "hi3635";
+			status = "ok";
+	};
+
+	huawei,ovisp23 {
+			compatible = "huawei,ovisp23";
+			status = "ok";
+	};
+
+	/* camera sensor device */
+	huawei,imx179 {
+		compatible = "huawei,imx179";
+		huawei,sensor_name = "imx179";
+		huawei,extisp_type = <6>;	/*EXTISP_AL6045+EXTISP_AL6010*/
+		huawei,sensor_index = <1>; /* must change to 1 in chip mode */
+		huawei,interface_type = <1>;
+		huawei,csi_lane = <3>;
+		huawei,csi_index = <0>; /* must change to 2 in chip mode */
+		huawei,csi_mipi_clk = <0x2c>;
+		huawei,pd_valid = <1>;
+		huawei,reset_valid = <1>;
+		huawei,vcmpd_valid = <0>;
+		huawei,i2c-index = <1>;
+		huawei,i2c-speed = <0x0a>;
+		huawei,i2c-addr = <0x6c>;
+		huawei,i2c-addr_bits = <1>;
+		huawei,i2c-val_bits = <0>;
+		huawei,sensor_chipid = <0x0179>;
+		huawei,camif_id = <0>;
+		huawei,vcm_name = "ad5823";
+		huawei,vcm_enable = <0>;
+		huawei,sensor_type = <1>;
+
+		avdd-supply = <&ldo19>;
+		iopw-supply = <&lsw52>;
+		dvdd-supply = <&ldo22>;
+
+		dvdd2-supply = <&ldo20>;
+		avdd2-supply = <&ldo21>;
+		vcm2-supply = <&ldo25>;
+		huawei,ldo-names = "avdd", "iopw", "dvdd", "dvdd2", "avdd2", "vcm2";
+		/* RESETB2, PWDN, PWDN2 */
+		gpios = <&gpio3 2 0 &gpio3 4 0 &gpio2 5 0 &gpio2 6 0 &gpio3 6 0>;
+		huawei,gpio-ctrl-types = "reset", "fsin", "suspend", "reset2", "ois2";
+		status = "disabled";
+	};
+	
+	huawei,ov8865 {
+		compatible = "huawei,ov8865";
+		huawei,sensor_name = "ov8865";
+		huawei,extisp_type = <4>;	/*EXTISP_AL6010*/
+		huawei,sensor_index = <1>; /* must change to 1 in chip mode */
+		huawei,interface_type = <1>;
+		huawei,csi_lane = <3>;
+		huawei,csi_index = <0>; /* must change to 2 in chip mode */
+		huawei,csi_mipi_clk = <0x2c>;
+		huawei,pd_valid = <1>;
+		huawei,reset_valid = <1>;
+		huawei,vcmpd_valid = <0>;
+		huawei,i2c-index = <1>;
+		huawei,i2c-speed = <0x0a>;
+		huawei,i2c-addr = <0x6c>;
+		huawei,i2c-addr_bits = <1>;
+		huawei,i2c-val_bits = <0>;
+		huawei,sensor_chipid = <0x0179>;
+		huawei,camif_id = <0>;
+		huawei,vcm_name = "ad5823";
+		huawei,vcm_enable = <0>;
+		huawei,sensor_type = <1>;
+
+		avdd-supply = <&ldo19>;
+		iopw-supply = <&lsw52>;
+		dvdd-supply = <&ldo22>;
+
+		dvdd2-supply = <&ldo20>;
+		avdd2-supply = <&ldo21>;
+		vcm2-supply = <&ldo25>;
+		huawei,ldo-names = "avdd", "iopw", "dvdd", "dvdd2", "avdd2", "vcm2";
+		/* RESETB2, PWDN, PWDN2 */
+		gpios = <&gpio3 2 0 &gpio3 4 0 &gpio2 5 0 &gpio2 6 0 &gpio3 6 0>;
+		huawei,gpio-ctrl-types = "reset", "fsin", "suspend", "reset2", "ois2";
+		status = "disabled";
+	};
+
+	huawei,imx214 {
+		compatible = "huawei,imx214_sunny";
+		huawei,sensor_name = "imx214";
+		huawei,extisp_type = <2>; /*EXTISP_AL6045*/
+		huawei,sensor_index = <0>;
+		huawei,interface_type = <1>;
+		huawei,csi_lane = <3>;
+		huawei,csi_index = <0>;
+		huawei,csi_mipi_clk = <0x2c>;
+		huawei,pd_valid = <1>;
+		huawei,reset_valid = <1>;
+		huawei,vcmpd_valid = <0>;
+		huawei,i2c-index = <0>;
+		huawei,i2c-speed = <0x0a>;
+		huawei,i2c-addr = <0x34>;
+		huawei,i2c-addr_bits = <1>;
+		huawei,i2c-val_bits = <0>;
+		huawei,sensor_chipid = <0x0214>;
+		huawei,camif_id = <0>;
+		huawei,vcm_name = "dw9714";
+		huawei,vcm_enable = <1>;
+		huawei,sensor_type = <0>;
+		dvdd-supply = <&ldo20>;
+		avdd-supply = <&ldo21>;
+		iopw-supply = <&lsw52>;
+		vcm-supply = <&ldo25>;
+		huawei,ldo-names = "dvdd", "avdd", "iopw", "vcm";
+		/* RESETB, FSIN, PWDN, PWDN2 */
+		gpios = <&gpio3 1 0  &gpio3 3 0 &gpio2 5 0 &gpio2 6 0>;
+		huawei,gpio-ctrl-types = "reset", "fsin", "suspend", "reset2";
+		status = "disabled";
+	};
+
+	huawei,imx278 {
+		compatible = "huawei,imx278";
+		huawei,sensor_name = "imx278";
+		huawei,extisp_type = <4>; /*EXTISP_AL6010*/
+		huawei,sensor_index = <0>;
+		huawei,interface_type = <1>;
+		huawei,csi_lane = <3>;
+		huawei,csi_index = <0>;
+		huawei,csi_mipi_clk = <0x2c>;
+		huawei,pd_valid = <1>;
+		huawei,reset_valid = <1>;
+		huawei,vcmpd_valid = <0>;
+		huawei,i2c-index = <0>;
+		huawei,i2c-speed = <0x0a>;
+		huawei,i2c-addr = <0x34>;
+		huawei,i2c-addr_bits = <1>;
+		huawei,i2c-val_bits = <0>;
+		huawei,sensor_chipid = <0x0278>;
+		huawei,camif_id = <0>;
+		huawei,vcm_name = "dw9714";
+		huawei,vcm_enable = <1>;
+		huawei,sensor_type = <0>;
+		dvdd-supply = <&ldo20>;
+		avdd-supply = <&ldo21>;
+		iopw-supply = <&lsw52>;
+		vcm-supply = <&ldo25>;
+
+		avdd2-supply = <&ldo19>;
+		dvdd2-supply = <&ldo22>;
+		huawei,ldo-names = "dvdd", "avdd", "iopw", "vcm", "avdd2", "dvdd2";
+		/* RESETB, FSIN, PWDN, PWDN2 */
+		gpios = <&gpio3 1 0  &gpio3 3 0 &gpio2 5 0 &gpio2 6 0  &gpio3 6 0>;
+		huawei,gpio-ctrl-types = "reset", "fsin", "suspend", "reset2", "ois";
+		status = "disabled";
+	};
+
+	huawei,imx219 {
+		compatible = "huawei,imx219";
+		huawei,sensor_name = "imx219";
+		huawei,extisp_type = <1>;
+		huawei,sensor_index = <0>;
+		huawei,interface_type = <1>;
+		huawei,csi_lane = <3>;
+		huawei,csi_index = <0>;
+		huawei,csi_mipi_clk = <0x2c>;
+		huawei,pd_valid = <1>;
+		huawei,reset_valid = <1>;
+		huawei,vcmpd_valid = <0>;
+		huawei,i2c-index = <0>;
+		huawei,i2c-speed = <0x0a>;
+		huawei,i2c-addr = <0x20>;
+		huawei,i2c-addr_bits = <1>;
+		huawei,i2c-val_bits = <0>;
+		huawei,sensor_chipid = <0x0219>;
+		huawei,camif_id = <0>;
+		huawei,vcm_name = "dw9714";
+		huawei,vcm_enable = <1>;
+		huawei,sensor_type = <0>;
+		dvdd-supply = <&ldo20>;
+		avdd-supply = <&ldo21>;
+		avdd2-supply = <&ldo19>;
+		iopw-supply = <&lsw52>;
+		vcm-supply = <&ldo25>;
+		huawei,ldo-names = "dvdd", "avdd", "avdd2", "iopw", "vcm";
+		/* RESETB, FSIN, PWDN, PWDN2 */
+		gpios = <&gpio3 1 0  &gpio3 3 0 &gpio4 1 0 >;
+		huawei,gpio-ctrl-types = "reset", "fsin", "vcm_pwdn";
+		status = "disabled";
+	};	
+
+	huawei,ov8858 {
+		compatible = "huawei,ov8858";
+		huawei,sensor_name = "ov8858";
+		huawei,extisp_type = <1>;
+		huawei,sensor_index = <0>;
+		huawei,interface_type = <1>;
+		huawei,csi_lane = <3>;
+		huawei,csi_index = <0>;
+		huawei,csi_mipi_clk = <0x2c>;
+		huawei,pd_valid = <1>;
+		huawei,reset_valid = <1>;
+		huawei,vcmpd_valid = <0>;
+		huawei,i2c-index = <0>;
+		huawei,i2c-speed = <0x0a>;
+		huawei,i2c-addr = <0x20>;
+		huawei,i2c-addr_bits = <1>;
+		huawei,i2c-val_bits = <0>;
+		huawei,sensor_chipid = <0x8858>;
+		huawei,camif_id = <0>;
+		huawei,vcm_name = "dw9714";
+		huawei,vcm_enable = <1>;
+		huawei,sensor_type = <0>;
+		dvdd-supply = <&ldo20>;
+		avdd-supply = <&ldo21>;
+		avdd2-supply = <&ldo19>;
+		iopw-supply = <&lsw52>;
+		vcm-supply = <&ldo25>;
+		huawei,ldo-names = "dvdd", "avdd", "avdd2", "iopw", "vcm";
+		/* RESETB, FSIN, PWDN, PWDN2 */
+		gpios = <&gpio3 1 0  &gpio3 3 0 &gpio4 1 0 >;
+		huawei,gpio-ctrl-types = "reset", "fsin", "vcm_pwdn";
+		status = "disabled";
+	};
+
+	huawei,ov2680 {
+		compatible = "huawei,ov2680";
+		huawei,sensor_name = "ov2680";
+		huawei,extisp_type = <1>;
+		huawei,sensor_index = <1>; /* must change to 1 in chip mode */
+		huawei,interface_type = <1>;
+		huawei,csi_lane = <0>;
+		huawei,csi_index = <1>; /* must change to 2 in chip mode */
+		huawei,csi_mipi_clk = <0x2c>;
+		huawei,pd_valid = <1>;
+		huawei,reset_valid = <1>;
+		huawei,vcmpd_valid = <0>;
+		huawei,i2c-index = <1>;
+		huawei,i2c-speed = <0x0a>;
+		huawei,i2c-addr = <0x6c>;
+		huawei,i2c-addr_bits = <1>;
+		huawei,i2c-val_bits = <0>;
+		huawei,sensor_chipid = <0x2680>;
+		huawei,camif_id = <0>;
+		huawei,vcm_name = "ad5823";
+		huawei,vcm_enable = <0>;
+		huawei,sensor_type = <1>;
+		avdd2-supply = <&ldo19>;
+		iopw-supply = <&lsw52>;
+		huawei,ldo-names ="avdd2", "iopw";
+		/* RESETB2, PWDN, PWDN2 */
+		gpios = <&gpio3 2 0 &gpio3 5 0 &gpio3 4 0>;
+		huawei,gpio-ctrl-types = "reset", "pwdn","fsin";
+		status = "disabled";
+	};
+
+	huawei,mt9d015 {
+		compatible = "huawei,mt9d015";
+		huawei,sensor_name = "mt9d015";
+		huawei,extisp_type = <1>;
+		huawei,sensor_index = <1>; /* must change to 1 in chip mode */
+		huawei,interface_type = <1>;
+		huawei,csi_lane = <0>;
+		huawei,csi_index = <1>; /* must change to 2 in chip mode */
+		huawei,csi_mipi_clk = <0x2c>;
+		huawei,pd_valid = <1>;
+		huawei,reset_valid = <1>;
+		huawei,vcmpd_valid = <0>;
+		huawei,i2c-index = <1>;
+		huawei,i2c-speed = <0x0a>;
+		huawei,i2c-addr = <0x6c>;
+		huawei,i2c-addr_bits = <1>;
+		huawei,i2c-val_bits = <1>;
+		huawei,sensor_chipid = <0x1501>;
+		huawei,camif_id = <0>;
+		huawei,vcm_name = "ad5823";
+		huawei,vcm_enable = <0>;
+		huawei,sensor_type = <1>;
+		avdd2-supply = <&ldo19>;
+		iopw-supply = <&lsw52>;
+		huawei,ldo-names ="avdd2", "iopw";
+		/* RESETB2, PWDN, PWDN2 */
+		gpios = <&gpio3 2 0 &gpio3 5 0 &gpio3 4 0>;
+		huawei,gpio-ctrl-types = "reset", "pwdn","fsin";
+		status = "disabled";
+	};	
+
+	huawei,imx328 {
+		compatible = "huawei,imx328_sunny";
+		huawei,sensor_name = "imx328";
+		huawei,extisp_type = <4>;
+		huawei,sensor_index = <0>;
+		huawei,interface_type = <1>;
+		huawei,csi_lane = <3>;
+		huawei,csi_index = <0>;
+		huawei,csi_mipi_clk = <0x2c>;
+		huawei,pd_valid = <1>;
+		huawei,reset_valid = <1>;
+		huawei,vcmpd_valid = <0>;
+		huawei,i2c-index = <0>;
+		huawei,i2c-speed = <0x0a>;
+		huawei,i2c-addr = <0x34>;
+		huawei,i2c-addr_bits = <1>;
+		huawei,i2c-val_bits = <0>;
+		huawei,sensor_chipid = <0x0328>;
+		huawei,camif_id = <0>;
+		huawei,vcm_name = "dw9714";
+		huawei,vcm_enable = <1>;
+		huawei,sensor_type = <0>;
+		dvdd-supply = <&ldo20>;
+		avdd-supply = <&ldo21>;
+		iopw-supply = <&lsw52>;
+		vcm-supply = <&ldo25>;
+		miniisp-supply = <&lsw51>;
+		huawei,ldo-names = "dvdd", "avdd", "iopw", "vcm","miniisp";
+		/* RESETB, FSIN, PWDN, PWDN2 */
+		gpios = <&gpio3 1 0  &gpio3 3 0 &gpio26 2 0 &gpio2 6 0 &gpio3 6 0 &gpio4 1 0>;
+		huawei,gpio-ctrl-types = "reset", "fsin", "suspend", "reset2", "pwdn", "vcm_pwdn";
+		status = "disabled";
+	};
+
+	huawei,ov13850{
+		compatible = "huawei,ov13850_foxconn";
+		huawei,sensor_name = "ov13850";
+		huawei,extisp_type = <4>;
+		huawei,sensor_index = <0>;
+		huawei,interface_type = <1>;
+		huawei,csi_lane = <3>;
+		huawei,csi_index = <0>;
+		huawei,csi_mipi_clk = <0x2c>;
+		huawei,pd_valid = <1>;
+		huawei,reset_valid = <1>;
+		huawei,vcmpd_valid = <0>;
+		huawei,i2c-index = <0>;
+		huawei,i2c-speed = <0x0a>;
+		huawei,i2c-addr = <0x34>;
+		huawei,i2c-addr_bits = <1>;
+		huawei,i2c-val_bits = <0>;
+		huawei,sensor_chipid = <0x13850>;
+		huawei,camif_id = <0>;
+		huawei,vcm_name = "dw9714";
+		huawei,vcm_enable = <1>;
+		huawei,sensor_type = <0>;
+		dvdd-supply = <&ldo20>;
+		avdd-supply = <&ldo21>;
+		iopw-supply = <&lsw52>;
+		vcm-supply = <&ldo25>;
+		miniisp-supply = <&lsw51>;
+		huawei,ldo-names = "dvdd", "avdd", "iopw", "vcm","miniisp";
+		/* RESETB, FSIN, PWDN, PWDN2 */
+		gpios = <&gpio3 1 0  &gpio3 3 0 &gpio26 2 0 &gpio2 6 0 &gpio3 6 0 &gpio4 1 0>;
+		huawei,gpio-ctrl-types = "reset", "fsin", "suspend", "reset2", "pwdn", "vcm_pwdn";
+		status = "disabled";
+	};
+
+	huawei,s5k4e1ga_sunny {
+		compatible = "huawei,s5k4e1ga_sunny";
+		huawei,sensor_name = "s5k4e1ga";
+		huawei,extisp_type = <4>;
+		huawei,sensor_index = <1>; /* must change to 1 in chip mode */
+		huawei,interface_type = <1>;
+		huawei,csi_lane = <3>;
+		huawei,csi_index = <0>; /* must change to 2 in chip mode */
+		huawei,csi_mipi_clk = <0x2c>;
+		huawei,pd_valid = <1>;
+		huawei,reset_valid = <1>;
+		huawei,vcmpd_valid = <0>;
+		huawei,i2c-index = <1>;
+		huawei,i2c-speed = <0x0a>;
+		huawei,i2c-addr = <0x6c>;
+		huawei,i2c-addr_bits = <1>;
+		huawei,i2c-val_bits = <0>;
+		huawei,sensor_chipid = <0x4e10>;
+		huawei,camif_id = <0>;
+		huawei,vcm_name = "ad5823";
+		huawei,vcm_enable = <0>;
+		huawei,sensor_type = <1>;
+
+		avdd-supply = <&ldo19>;
+		iopw-supply = <&lsw52>;
+		huawei,ldo-names = "avdd", "iopw";
+		/* RESETB2, PWDN, PWDN2 */
+		gpios = <&gpio3 2 0 &gpio3 4 0 &gpio26 2 0 &gpio2 6 0 &gpio3 5 0>;
+		huawei,gpio-ctrl-types = "reset", "fsin", "suspend", "reset2", "pwdn";
+		status = "disabled";
+	};
+
+	huawei,ov5648_x1s {
+		compatible = "huawei,ov5648_x1s_foxconn";
+		huawei,sensor_name = "ov5648_x1s";
+		huawei,extisp_type = <4>;
+		huawei,sensor_index = <1>; /* must change to 1 in chip mode */
+		huawei,interface_type = <1>;
+		huawei,csi_lane = <3>;
+		huawei,csi_index = <0>; /* must change to 2 in chip mode */
+		huawei,csi_mipi_clk = <0x2c>;
+		huawei,pd_valid = <1>;
+		huawei,reset_valid = <1>;
+		huawei,vcmpd_valid = <0>;
+		huawei,i2c-index = <1>;
+		huawei,i2c-speed = <0x0a>;
+		huawei,i2c-addr = <0x6c>;
+		huawei,i2c-addr_bits = <1>;
+		huawei,i2c-val_bits = <0>;
+		huawei,sensor_chipid = <0x5648>;
+		huawei,camif_id = <0>;
+		huawei,vcm_name = "ad5823";
+		huawei,vcm_enable = <0>;
+		huawei,sensor_type = <1>;
+		avdd-supply = <&ldo19>;
+		iopw-supply = <&lsw52>;
+		huawei,ldo-names = "avdd", "iopw";
+		/* RESETB2, PWDN, PWDN2 */
+		gpios = <&gpio3 2 0 &gpio3 4 0 &gpio26 2 0 &gpio2 6 0 &gpio3 5 0>;
+		huawei,gpio-ctrl-types = "reset", "fsin", "suspend", "reset2", "pwdn";
+		status = "disabled";
+	};
+
+	/* vcm device */
+	hisi,ad5823 {
+		compatible = "hisi,ad5823";
+		hisi,vcm-name = "ad5823";
+		hisi,slave-addr = <0x18>;
+		hisi,vcm-index = <0>;
+		hisi,data-type=<0>;
+		status = "disabled";
+	};
+
+	hisi,ad5816 {
+		compatible = "hisi,ad5816";
+		hisi,vcm-name = "ad5816";
+		hisi,slave-addr = <0x1c>;
+		hisi,vcm-index = <0>;
+		hisi,data-type=<0>;
+		status = "disabled";
+	};
+
+	hisi,dw9714 {
+		compatible = "hisi,dw9714";
+		hisi,vcm-name = "dw9714";
+		hisi,slave-addr = <0x18>;
+		hisi,vcm-index = <0>;
+		hisi,data-type=<1>;
+		status = "disabled";
+	};
+
+	/* mini isp altek6045&6010 */
+	huawei,altek6045 {
+		compatible = "huawei,altek6045";
+		hisi,isp-pin = <20 23 24>;
+		status = "disabled";
+	};
+
+	/* camera flash device */
+	amba{
+		i2c1: i2c@FDF0A000 {
+			huawei,lm3646@67{
+				compatible = "huawei,lm3646";
+				reg = <0x67>;
+				huawei,flash-name = "lm3646";
+				huawei,flash-index = <0>;
+				huawei,flash-type = <0>;
+				huawei,slave-address = <0x67>;
+				/* 0 means gpio control, 1 means i2c control */
+				huawei,flash-ctrltype = <0>; /* gpio control */
+				huawei,flash-pin = <72 156 155>;
+				huawei,need-wakelock = <0>;
+				huawei,flash-chipid = <0x11>;
+				huawei,flash_led_num = <336>;
+				huawei,flash_led = <0x0 0x1 0x2 0x3 0x4 0x5 0x6 0x7 0x8 0x9 0xa>;
+				huawei,torch_led_num = <336>;
+				huawei,torch_led = <0x0 0x1 0x2 0x3 0x4 0x5 0x6 0x7>;
+				pinctrl-names = "default", "idle";
+				pinctrl-0 = <
+					&gpio072_pmx_func
+					&gpio156_pmx_func
+					&gpio155_pmx_func
+					&gpio072_cfg_func
+					&gpio156_cfg_func
+					&gpio155_cfg_func
+				>;
+				pinctrl-1 = <
+					&gpio072_pmx_idle
+					&gpio156_pmx_idle
+					&gpio155_pmx_idle
+					&gpio072_cfg_idle
+					&gpio156_cfg_idle
+					&gpio155_cfg_idle
+				>;
+				status = "disabled";
+			};
+
+			huawei,lm3646_front@68{
+				compatible = "huawei,lm3646_front";
+				reg = <0x68>;
+				huawei,flash-name = "lm3646_front";
+				huawei,flash-index = <1>;
+				huawei,flash-type = <0>;
+				huawei,slave-address = <0x67>;
+				/* 0 means gpio control, 1 means i2c control */
+				huawei,flash-ctrltype = <0>; /* gpio control */
+				huawei,flash-pin = <155>;
+				huawei,flash-chipid = <0x11>;
+				huawei,flash_led_num = <336>;
+				huawei,flash_led = <0x0 0x1 0x2 0x3 0x4 0x5 0x6 0x7 0x8 0x9 0xa>;
+				huawei,torch_led_num = <336>;
+				huawei,torch_led = <0x0 0x1 0x2 0x3 0x4 0x5 0x6 0x7>;
+				pinctrl-names = "default", "idle";
+				pinctrl-0 = <
+					&gpio155_pmx_func
+					&gpio155_cfg_func
+				>;
+				pinctrl-1 = <
+					&gpio155_pmx_idle
+					&gpio155_cfg_idle
+				>;
+				status = "disabled";
+			};
+
+			huawei,lm3642@63{
+				compatible = "huawei,lm3642";
+				reg = <0x63>;
+				huawei,flash-name = "lm3642";
+				huawei,flash-index = <0>;
+				huawei,flash-type = <0>;
+				huawei,slave-address = <0x63>;
+				huawei,flash-pin = <127 156>;
+				huawei,flash-chipid = <0x52>;
+				huawei,flash_led_num = <11>;
+				huawei,flash_led = <0x0 0x1 0x2 0x3 0x4 0x5 0x6 0x7 0x8 0x9 0xa>;
+				huawei,torch_led_num = <8>;
+				huawei,torch_led = <0x0 0x1 0x2 0x3 0x4 0x5 0x6 0x7>;
+				pinctrl-names = "default", "idle";
+				pinctrl-0 = <
+					&gpio127_pmx_func
+					&gpio156_pmx_func
+					&gpio127_cfg_func
+					&gpio156_cfg_func
+				>;
+				pinctrl-1 = <
+					&gpio127_pmx_idle
+					&gpio156_pmx_idle
+					&gpio127_cfg_idle
+					&gpio156_cfg_idle
+				>;
+				status = "disabled";
+			};
+		};
+	};
+
+	/* pmu led flash */
+	huawei,pmu_led {
+		compatible = "huawei,pmu_led";
+		huawei,flash-name = "pmu_led";
+		huawei,flash-index = <1>;
+		huawei,flash-type = <0>;
+		huawei,slave-address = <0x0>;
+
+		huawei,flash_led_num = <9>;
+		huawei,torch_led_num = <2>;
+		huawei,flash_led = <0x1 0x2 0x3 0x4 0x5 0x6 0x7 0x8 0x9>;
+		huawei,torch_led = <0x0 0x3>;
+
+		huawei,led_ctrl_flash = <0x13 0x00 0x75 0x0a 0xd0 0xc8 0x1b>;
+		huawei,led_ctrl_torch = <0x13 0x00 0x75 0x0a 0xd0 0x48 0x1b>;
+		
+		huawei,flash-position = "front";
+
+		status = "disabled";
+	};
+
+	/*ois device*/
+	hisi,lc8981 {
+		compatible = "hisi,lc8981";
+		hisi,ois-name = "lc8981";
+		hisi,slave-addr = <0x24>;
+		hisi,ois-support = <1>;
+		status = "disabled";
+	};
+
+	hisi,camnumber@0 {
+		compatible = "hisi,camnumber";
+		hisi,cam-name = "camnumber";
+		hisi,product-cam-num = <2>;
+		status = "ok";
+	};
+};

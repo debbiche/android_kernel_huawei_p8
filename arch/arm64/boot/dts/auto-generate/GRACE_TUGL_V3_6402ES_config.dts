@@ -1,0 +1,103 @@
+
+/**
+ * Huawei Ltd.
+ * PhosphorV660
+ */
+
+/dts-v1/;
+
+/include/ "fastboot.dtsi"
+/include/ "GRACE_TUGL_V3_config.dtsi"
+/include/ "GRACE_TUGL_V3_6402ES_pin.dtsi"
+/include/ "GRACE_TUGL_V3_6402ES_hi6402_pin.dtsi"
+/include/ "GRACE_TUGL_V3_6402ES_modem_pin.dtsi"
+///include/ "GRACE_TUGL_V3_6402ES_charger.dtsi"
+///include/ "GRACE_TUGL_V3_6402ES_pmic.dtsi"
+///include/ "GRACE_TUGL_V3_6402ES_gpio_logic.dtsi"
+
+/ {
+	hisi,boardid = <1 4 0 5 >;
+	hisi,boardname = "GRACE_TUGL_V3_6402ES";
+	hisi,config_profile = "normal";
+
+	hi6402es_irq: hi6402es_irq@e82b9000 {
+		status = "ok";
+		hi6402es_codec: hi6402es_codec@0{
+			status = "ok";
+		};
+
+		hi6402es_mbhc: hi6402es_mbhc@0{
+			status = "ok";
+		};
+
+		hi6402es_dsp: hi6402es_dsp@0{
+			status = "ok";
+		};
+
+		gpioes28: gpioes@0{
+			status = "ok";
+		};
+
+		gpioes29: gpioes@1{
+			status = "ok";
+		};
+
+		gpioes30: gpioes@2{
+			status = "ok";
+		};
+
+		gpioes31: gpioes@3{
+			status = "ok";
+		};
+
+		pmxes4: hi6402es_pinctrl {
+			status = "ok";
+		};
+	};
+
+	hi6402_irq: hi6402_irq@e82b9000 {
+		status = "disabled";
+		hi6402_codec: hi6402_codec@0{
+			status = "disabled";
+		};
+
+		hi6402_mbhc: hi6402_mbhc@0{
+			status = "disabled";
+		};
+
+		hi6402_dsp: hi6402_dsp@0{
+			status = "disabled";
+		};
+
+		gpio28: gpio@0{
+			status = "disabled";
+		};
+
+		gpio29: gpio@1{
+			status = "disabled";
+		};
+
+		gpio30: gpio@2{
+			status = "disabled";
+		};
+
+		gpio31: gpio@3{
+			status = "disabled";
+		};
+
+		pmx4: hi6402_pinctrl {
+			status = "disabled";
+		};
+	};
+
+	sound {
+		compatible = "hisilicon,hi3630-hi6402es";
+		status = "ok";
+	};
+
+	audio_hw_config {
+		product_name = "GRACEES";
+		status = "ok";
+	};
+};
+

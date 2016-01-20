@@ -1,0 +1,28 @@
+
+/**
+ * Huawei Ltd.
+ * PhosphorV660
+ */
+
+/dts-v1/;
+
+/include/ "fastboot.dtsi"
+/include/ "GRACE_TUGL_V4_64G_config.dtsi"
+/include/ "GRACE_TUGL_V4_64G_HighCPU_pin.dtsi"
+/include/ "GRACE_TUGL_V4_64G_HighCPU_hi6402_pin.dtsi"
+/include/ "GRACE_TUGL_V4_64G_HighCPU_modem_pin.dtsi"
+///include/ "GRACE_TUGL_V4_64G_HighCPU_charger.dtsi"
+///include/ "GRACE_TUGL_V4_64G_HighCPU_pmic.dtsi"
+///include/ "GRACE_TUGL_V4_64G_HighCPU_gpio_logic.dtsi"
+
+/ {
+	hisi,boardid = <1 4 1 9 >;
+	hisi,boardname = "GRACE_TUGL_V4_64G_HighCPU";
+	hisi,config_profile = "highhigh";
+
+	target-cpu {
+		compatible = "hisi,targetcpu";
+		target_cpu = "Kirin 935";
+	};
+};
+

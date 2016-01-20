@@ -1,0 +1,8 @@
+/{
+	/*add empty node here*/
+
+	chosen{};	/*kernel: 1*/
+	fastboot{};	/*keypad: 3*/
+	modem_pinctrl{};	/*modem: 7*/
+	framebuffer@E8500000{}; 	/*display: 13*/
+};

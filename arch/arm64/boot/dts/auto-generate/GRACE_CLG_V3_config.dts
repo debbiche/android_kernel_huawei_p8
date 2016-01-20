@@ -1,0 +1,133 @@
+
+/**
+ * Huawei Ltd.
+ * PhosphorV660
+ */
+
+/dts-v1/;
+
+/include/ "fastboot.dtsi"
+/include/ "GRACE_CLG_V1_config.dtsi"
+/include/ "GRACE_CLG_V3_pin.dtsi"
+/include/ "GRACE_CLG_V3_hi6402_pin.dtsi"
+/include/ "GRACE_CLG_V3_modem_pin.dtsi"
+///include/ "GRACE_CLG_V3_charger.dtsi"
+///include/ "GRACE_CLG_V3_pmic.dtsi"
+///include/ "GRACE_CLG_V3_gpio_logic.dtsi"
+
+/ {
+	hisi,boardid = <1 4 0 8 >;
+	hisi,boardname = "GRACE_CLG_V3";
+	hisi,config_profile = "normal";
+
+
+	hi6402es_irq: hi6402es_irq@e82b9000 {
+		status = "disabled";
+		hi6402es_codec: hi6402es_codec@0{
+			status = "disabled";
+		};
+
+		hi6402es_mbhc: hi6402es_mbhc@0{
+			status = "disabled";
+		};
+
+		hi6402es_dsp: hi6402es_dsp@0{
+			status = "disabled";
+		};
+
+		gpioes28: gpioes@0{
+			status = "disabled";
+		};
+
+		gpioes29: gpioes@1{
+			status = "disabled";
+		};
+
+		gpioes30: gpioes@2{
+			status = "disabled";
+		};
+
+		gpioes31: gpioes@3{
+			status = "disabled";
+		};
+
+		pmxes4: hi6402es_pinctrl {
+			status = "disabled";
+		};
+	};
+
+	hi6402_irq: hi6402_irq@e82b9000 {
+		status = "ok";
+		hi6402_codec: hi6402_codec@0{
+			status = "ok";
+		};
+
+		hi6402_mbhc: hi6402_mbhc@0{
+			status = "ok";
+		};
+
+		hi6402_dsp: hi6402_dsp@0{
+			status = "ok";
+		};
+
+		gpio28: gpio@0{
+			awake-gpio = <>;
+			status = "ok";
+		};
+
+		gpio29: gpio@1{
+			awake-gpio = <>;
+			status = "ok";
+		};
+
+		gpio30: gpio@2{
+			awake-gpio = <>;
+			status = "ok";
+		};
+
+		gpio31: gpio@3{
+			awake-gpio = <5 6>;
+			status = "ok";
+		};
+
+		pmx4: hi6402_pinctrl {
+			status = "ok";
+		};
+	};
+
+	viacbp82d_power:viacbp82d_power {
+		via_reset_ind = <&gpio31 6 0>;	      //this is connected to hi6402 Cs.
+		status = "ok";
+	};
+
+	sound {
+		compatible = "hisilicon,hi3630-hi6402";
+		status = "ok";
+	};
+
+	audio_hw_config {
+		product_name = "GRACE_CLG";
+		status = "ok";
+	};
+
+	touchscreen {
+		synaptics: touchscreen@70 {
+			ic_type = <2>;
+			raw_data_limit = "2750", /*rawdata-max*/
+					 "1200", /*rawdata-min*/
+					 "15", /*deltadata-max*/
+					 "-15", /*deltadata-min*/
+					 "350", /*rx-to-rx-diff-max*/
+					 "-350", /*rx-to-rx-diff-min*/
+					 "350", /*tx-to-tx-diff-max*/
+					 "-350";/*tx-to-tx-diff-min*/
+		};
+	};
+	antenna_fpga{
+		compatible = "antenna_fpga";
+		antenna_fpga,pre-image-filename = "GRACE-CLG-V3.bin";
+		antenna_fpga,gpio-exception = <&gpio31 5 0>;
+		status = "ok";
+	};
+};
+

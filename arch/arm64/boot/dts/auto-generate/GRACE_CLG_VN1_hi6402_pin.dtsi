@@ -1,0 +1,25 @@
+/ {
+	hi6402_irq: hi6402_irq@e82b9000 {
+		hi6402_pinctrl {
+			gpio254_pinctrl_func: gpio254_pinctrl_func {
+				pinctrl-hi6402,pins = <4>;
+				pinmux-hi6402,func-sel = <3>;
+				pinconf-hi6402,ios-ctrl-conf = <0x288>;
+				pinconf-hi6402,bias-pulldown = <0 0x40>;
+				pinconf-hi6402,bias-pullup = <0 0x20>;
+				pinconf-hi6402,drive-strength = <0x10 0x1c>;
+			};
+			gpio254_pinctrl_idle: gpio254_pinctrl_idle {
+				pinctrl-hi6402,pins = <4>;
+				pinmux-hi6402,func-sel = <3>;
+				pinconf-hi6402,ios-ctrl-conf = <0x288>;
+				pinconf-hi6402,bias-pulldown = <0 0x40>;
+				pinconf-hi6402,bias-pullup = <0 0x20>;
+				pinconf-hi6402,drive-strength = <0x10 0x1c>;
+			};
+
+		};
+
+	};
+
+};

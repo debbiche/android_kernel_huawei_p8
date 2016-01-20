@@ -1,0 +1,24 @@
+
+/**
+ * Huawei Ltd.
+ * PhosphorV660
+ */
+
+/dts-v1/;
+
+/include/ "fastboot.dtsi"
+/include/ "GRACE_UL_V4_config.dtsi"
+/include/ "GRACE_UL_V4_ANT_pin.dtsi"
+/include/ "GRACE_UL_V4_ANT_modem_pin.dtsi"
+///include/ "GRACE_UL_V4_ANT_charger.dtsi"
+///include/ "GRACE_UL_V4_ANT_pmic.dtsi"
+///include/ "GRACE_UL_V4_ANT_gpio_logic.dtsi"
+
+/ {
+	hisi,boardid = <1 4 2 9 >;
+	hisi,boardname = "GRACE_UL_V4_ANT";
+	hisi,modem_id = <0x3EB07000>;
+	hisi,config_profile = "normal";
+
+};
+
